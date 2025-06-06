@@ -2,7 +2,7 @@ terraform {
   required_providers {
     libvirt = {
       source = "dmacvicar/libvirt"
-      version = "0.8.0"
+      version = "0.8.3"
     }
   }
 }
@@ -17,7 +17,15 @@ provider "libvirt" {
 resource "libvirt_pool" "libvirt_lv_pool" {
   name = "libvirt_lv_pool"
   type = "dir"
-  path = "/var/lib/libvirt/terraform/pool"
+  target {
+    path = "/var/lib/libvirt/terraform/pool"
+  }
+}
+
+resource "libvirt_network" "default" {
+  name = "default"
+  mode = "bridge"
+  bridge = "virbr0"
 }
 
 
